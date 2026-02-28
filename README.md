@@ -29,3 +29,6 @@ docker-compose up -d
 
 #### To check health of running container
 docker stats
+
+in28min github
+https://github.com/in28minutes/spring-microservices-v3/tree/main/05.kubernetes
