@@ -23,6 +23,8 @@ docker-compose stop currency-conversion
 
 #### Restart the Stack
 docker-compose down
+
+### To start everything
 docker-compose up -d
 
 #### To check health of running container

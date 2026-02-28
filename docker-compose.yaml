@@ -20,7 +20,7 @@ services:
       - naming-server
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka/
-      SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin-server:9411/api/v2/spans
 
   # 3. Currency Exchange Service
   currency-exchange:
@@ -35,7 +35,7 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka/
       # If you use H2 Console, it will be available at localhost:8000/h2-console
-      SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin-server:9411/api/v2/spans
   # 4. Currency Conversion Service
   currency-conversion:
     image: onkar22/mmv2-currency-conversion-service:0.0.1-SNAPSHOT
@@ -48,7 +48,7 @@ services:
       - naming-server
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka/
-      SPRING.ZIPKIN.BASEURL: http://zipkin-server:9411
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin-server:9411/api/v2/spans
 
   zipkin-server:
     image: openzipkin/zipkin:2.23.2
