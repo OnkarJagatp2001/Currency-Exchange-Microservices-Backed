@@ -1,0 +1,53 @@
+services:
+  # 1. Naming Server (Eureka) - Start this first
+  naming-server:
+    image: onkar22/mmv2-naming-server:0.0.1-SNAPSHOT
+    mem_limit: 800m
+    ports:
+      - "8761:8761"
+    networks:
+      - microservice-network
+
+  # 2. API Gateway
+  api-gateway:
+    image: onkar22/mmv2-api-gateway:0.0.1-SNAPSHOT
+    mem_limit: 512m
+    ports:
+      - "8765:8765"
+    networks:
+      - microservice-network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka/
+
+  # 3. Currency Exchange Service
+  currency-exchange:
+    image: onkar22/mmv2-currency-exchange-service:0.0.1-SNAPSHOT
+    mem_limit: 800m
+    ports:
+      - "8000:8000"
+    networks:
+      - microservice-network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka/
+      # If you use H2 Console, it will be available at localhost:8000/h2-console
+
+  # 4. Currency Conversion Service
+  currency-conversion:
+    image: onkar22/mmv2-currency-conversion-service:0.0.1-SNAPSHOT
+    mem_limit: 800m
+    ports:
+      - "8100:8100"
+    networks:
+      - microservice-network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka/
+
+networks:
+  microservice-network:
+    driver: bridge
