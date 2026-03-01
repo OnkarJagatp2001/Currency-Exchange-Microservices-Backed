@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 // uses a proxying mechanism to turn your interface into a functional HTTP client.
 
 //@FeignClient(name="currency-exchange-service", url = "localhost:8000")
-@FeignClient(name="currency-exchange-service")
+@FeignClient(name = "currency-exchange-service")
 public interface CurrencyExchangeProxy {
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
     public CurrencyConversion retrieveExchangeValue(@PathVariable String from, @PathVariable String to);
+
+    @GetMapping("/currency-exchange/all")
+    public java.util.List<CurrencyConversion> getAllRates();
 
 }

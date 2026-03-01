@@ -32,9 +32,11 @@ services:
       - microservice-network
     depends_on:
       - naming-server
+      - currency-db
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka/
       # If you use H2 Console, it will be available at localhost:8000/h2-console
+      EXCHANGE_API_KEY: ${MY_SECRET_API_KEY}
       MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin-server:9411/api/v2/spans
   # 4. Currency Conversion Service
   currency-conversion:
@@ -57,6 +59,24 @@ services:
       - "9411:9411"
     networks:
       - microservice-network
+    # 5. PostgreSQL Database
+  currency-db:
+      image: postgres:15-alpine
+      mem_limit: 512m
+      environment:
+        POSTGRES_DB: currencydb
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+      ports:
+        - "5432:5432"
+      networks:
+        - microservice-network
+      volumes:
+        - pgdata:/var/lib/postgresql/data
+
 networks:
   microservice-network:
     driver: bridge
+  # Add this at the very bottom under 'networks'
+volumes:
+  pgdata:

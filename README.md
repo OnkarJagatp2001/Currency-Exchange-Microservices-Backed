@@ -39,3 +39,15 @@ Snapshots
 <img width="1908" height="903" alt="image" src="https://github.com/user-attachments/assets/7f7a1f08-1fca-4d1c-a986-ed19eba7488e" />
 
 <img width="1919" height="993" alt="image" src="https://github.com/user-attachments/assets/571dc0c9-3d11-4cfc-967c-8ab9e9b838b2" />
+
+
+## Action,Command PG
+List all Tables,\dt
+Check Table Structure,\d currency_exchange
+Show all Databases,\l
+Exit psql,\q
+
+## To do inside PG in docker 
+PS C:\Users\Onkar> docker exec -it 7463136c7bbc psql -U postgres -d currencydb
+
+https://app.exchangerate-api.com/dashboard
